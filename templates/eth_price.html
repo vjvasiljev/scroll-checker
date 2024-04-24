@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ethereum Price</title>
+  </head>
+  <body>
+    <h1>Current Ethereum Price</h1>
+    {% if eth_price %}
+    <p>Price in BTC: {{ eth_price.BTC|default('Unavailable', true) }}</p>
+    <p>Price in USD: {{ eth_price.USD|default('Unavailable', true) }}</p>
+    <p>Price in EUR: {{ eth_price.EUR|default('Unavailable', true) }}</p>
+    {% else %}
+    <p>Ethereum price data is currently unavailable. Please try again later.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wallet Information Results</title>
+  </head>
+  <body>
+    <h1>Wallet Information Results</h1>
+
+    {% if error %}
+    <p>Error: {{ error }}</p>
+    {% else %}
+    <p>The wallet address is: {{ address }}</p>
+    <p>Balance: {{ ether_balance }} ETH</p>
+    {% if usd_balance %}
+    <p>Equivalent USD Balance: ${{ usd_balance|default(0)|format('0.2f') }}</p>
+    {% endif %}
+    <p>Total number of transactions: {{ counts[0] }}</p>
+    <p>Number of successful transactions: {{ counts[1] }}</p>
+    <p>Number of unique successful transaction days: {{ counts[2] }}</p>
+    <p>Number of unique successful transaction weeks: {{ counts[3] }}</p>
+    <p>Number of unique successful transaction months: {{ counts[4] }}</p>
+    <p>Number of unique contracts interacted with: {{ counts[5] }}</p>
+    <p>Total volume in ETH: {{ counts[6] }}</p>
+    <p>Total gas fees in ETH: {{ counts[7] }}</p>
+    {% if total_volume_usd %}
+    <p>
+      Total volume in USD: ${{ total_volume_usd|default(0)|format('0.2f') }}
+    </p>
+    {% endif %} {% if total_gas_fees_usd %}
+    <p>
+      Total gas fees in USD: ${{ total_gas_fees_usd|default(0)|format('0.2f') }}
+    </p>
+    {% endif %} {% endif %}
+
+    <a href="/">Go back</a>
+  </body>
+</html>

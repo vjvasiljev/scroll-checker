@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Wallet Airdrop Checker</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f7f8fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        color: #005aee;
+        margin-top: 0;
+      }
+
+      h2,
+      h3 {
+        font-size: 1.25rem;
+        margin: 10px 0;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      form {
+        margin: 20px 0;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        width: calc(100% - 22px); /* Account for padding and border */
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-sizing: border-box; /* Include padding and border in the element's width */
+      }
+
+      input[type="submit"] {
+        background-color: #005aee;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #004ac1;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+        display: inline-block;
+      }
+
+      ul li {
+        background-color: #eee;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      ul li.totals {
+        text-align: left;
+      }
+
+      .error-message {
+        color: #ff3838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Scroll Wallet Balance</h1>
+      <form action="/balance" method="post">
+        <input
+          type="text"
+          name="address"
+          placeholder="Enter wallet address"
+          required
+        />
+        <input type="submit" value="Check Balance" />
+      </form>
+      {% if address %}
+      <h3>{{ address }}</h3>
+      {% endif %} {% if balance %}
+      <h2>Balance:</h2>
+      <ul>
+        <li>Total ETH: Ξ{{ "%.6f"|format(balance) }}</li>
+        {% endif %} {% if usd_balance %}
+        <li>Total USD: ${{ "%.2f"|format(usd_balance) }}</li>
+        {% endif %} {% if transaction_info %}
+      </ul>
+      <br />
+      <h2>Transactions:</h2>
+      <ul>
+        <li>
+          Total Transactions: {{ transaction_info.num_total_transactions }}
+        </li>
+        <li>
+          Successful Transactions: {{
+          transaction_info.num_successful_transactions }}
+        </li>
+        <li>Unique Days: {{ transaction_info.num_unique_days }}</li>
+        <li>Unique Weeks: {{ transaction_info.num_unique_weeks }}</li>
+        <li>Unique Months: {{ transaction_info.num_unique_months }}</li>
+        <li>
+          Unique Smart Contracts: {{ transaction_info.num_unique_contracts }}
+        </li>
+        <li>
+          Total Volume in ETH: Ξ{{
+          "%.6f"|format(transaction_info.total_volume_eth) }}
+        </li>
+        <li class="totals">
+          Total Volume in USD: ${{
+          "%.2f"|format(transaction_info.total_volume_usd) }}
+        </li>
+        <li>
+          Layer 2 Gas Fees in ETH: Ξ{{
+          "%.6f"|format(transaction_info.total_gas_fees_eth) }}
+        </li>
+        <li class="totals">
+          Layer 2 Gas Fees in USD: ${{
+          "%.2f"|format(transaction_info.total_gas_fees_usd) }}
+        </li>
+      </ul>
+      {% endif %} {% if error %}
+      <h3 class="error-message">Error: {{ error }}</h3>
+      {% endif %}
+    </div>
+  </body>
+</html>

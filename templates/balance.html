@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wallet Balance</title>
+  </head>
+  <body>
+    <h1>Wallet Balance</h1>
+    <p>Balance: {{ ether_balance }} ETH</p>
+    {% if usd_balance %}
+    <p>Equivalent USD Balance: ${{ usd_balance|format('0.2f') }}</p>
+    {% endif %}
+  </body>
+</html>
